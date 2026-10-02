@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: 246 244 239;
+  --surface: 255 255 255;
+  --elevated: 250 249 246;
+  --fg: 22 24 38;
+  --muted: 96 100 122;
+  --accent: 226 132 14;
+  --ion: 74 98 236;
+  --mint: 14 158 110;
+  --coral: 222 68 68;
+  --lilac: 128 92 236;
+  color-scheme: light;
+}
+
+.dark {
+  --bg: 8 10 19;
+  --surface: 15 18 32;
+  --elevated: 22 26 44;
+  --fg: 234 236 245;
+  --muted: 138 144 170;
+  --accent: 255 181 71;
+  --ion: 108 140 255;
+  --mint: 52 211 153;
+  --coral: 255 107 107;
+  --lilac: 180 156 255;
+  color-scheme: dark;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-bg font-sans text-fg antialiased;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+::selection {
+  background: rgb(var(--accent) / 0.35);
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: rgb(var(--fg) / 0.12); border-radius: 999px; border: 3px solid transparent; background-clip: content-box; }
+::-webkit-scrollbar-thumb:hover { background-color: rgb(var(--fg) / 0.25); }
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-fg/10 bg-surface/80 shadow-soft backdrop-blur-xl;
+  }
+  .input {
+    @apply w-full rounded-xl border border-fg/10 bg-elevated px-3.5 py-2.5 text-sm text-fg outline-none transition placeholder:text-muted/70 focus:border-accent/60 focus:ring-4 focus:ring-accent/15;
+  }
+  .label {
+    @apply mb-1.5 block text-[11px] font-semibold uppercase tracking-[0.12em] text-muted;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full border border-fg/10 bg-fg/[0.04] px-2.5 py-0.5 text-[11px] font-medium text-muted;
+  }
+  .kbd {
+    @apply rounded-md border border-fg/15 bg-elevated px-1.5 py-0.5 font-mono text-[10px] text-muted;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    background: linear-gradient(110deg, rgb(var(--accent)) 10%, rgb(var(--coral)) 50%, rgb(var(--lilac)) 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(rgb(var(--fg) / 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(var(--fg) / 0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .mask-fade {
+    mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  }
+  .shimmer-text {
+    background: linear-gradient(90deg, rgb(var(--muted)) 0%, rgb(var(--fg)) 50%, rgb(var(--muted)) 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shimmer 2.4s linear infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
